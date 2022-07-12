@@ -26,7 +26,6 @@ export class UserService {
 
   createUser(body: UsersCreateDto) {
     var found = result.find(res => res.userName === body.userName);
-    console.log("found === ",found);
     if (found) {
       return found;
     } else {
