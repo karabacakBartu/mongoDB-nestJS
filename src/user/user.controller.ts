@@ -34,6 +34,8 @@ export class UserController {
         
     }
 
+
+
     @Get('movies')
     getAllMovies()
     {
