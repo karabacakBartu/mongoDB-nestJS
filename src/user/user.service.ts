@@ -26,7 +26,15 @@ export class UserService {
   //get all users info
   async getAll(): Promise<User[]> {
 
-    return await this.UserMongo.find().exec();
+    /*return await this.UserMongo.find();*/
+   return await this.UserMongo.aggregate([{
+      $lookup: {
+        from: 'movies',
+        localField: 'favoriteMovies',
+        foreignField: '_id',
+        as: 'Userfav'
+      }
+    }]);
   }
 
   //get all movie name and id
@@ -55,16 +63,17 @@ export class UserService {
      });*/
 
 
-    let arr = this.UserMongo.find({
+    let arr = await this.UserMongo.find({
 
       userName: userName,
 
     }).exec();
 
 
-    (await arr).forEach(function (data) {
+    arr.forEach(function (data) {
       favoritemovies = data.favoriteMovies;
     });
+
 
       
     return await this.UserMongo.find({

@@ -9,7 +9,7 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(private userService: UserService) { }
 
-    @Post('users/createuser')
+    @Post('users')
     async createUser(@Body() body: UsersCreateDto):Promise<User> {
         return this.userService.create(body);
     }
@@ -26,7 +26,7 @@ export class UserController {
     }
 
 
-    @Post('movies/createmovie')
+    @Post('movies')
     createMovie(@Body() body:MovieDto):Promise<Movie>
     {
         
