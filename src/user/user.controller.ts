@@ -1,5 +1,7 @@
 import { Body, Controller, Get, Post ,Param} from '@nestjs/common';
+import { MovieDto } from 'tools/dtos/moviedto.dto';
 import { UsersCreateDto } from 'tools/dtos/user.dto';
+import { Movie } from 'tools/schemas/moviesschema';
 import { User } from 'tools/schemas/userschema';
 import { UserService } from './user.service';
 
@@ -7,7 +9,7 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(private userService: UserService) { }
 
-    @Post('users')
+    @Post('users/createuser')
     async createUser(@Body() body: UsersCreateDto):Promise<User> {
         return this.userService.create(body);
     }
@@ -17,10 +19,25 @@ export class UserController {
             return this.userService.getAll();
     }
 
-    @Get('user/:userName')
+    @Get('users/:userName')
     findOne(@Param() params): Promise<User[]>
     {
       return this.userService.getMovieMatch(params.userName);
+    }
+
+
+    @Post('movies/createmovie')
+    createMovie(@Body() body:MovieDto):Promise<Movie>
+    {
+        
+            return this.userService.createMovie(body);
+        
+    }
+
+    @Get('movies')
+    getAllMovies()
+    {
+      return this.userService.getMovies();
     }
     
 }
